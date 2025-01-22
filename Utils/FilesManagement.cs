@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Text.Json;
-using YahooFinanceApi;
+using System.Data.OleDb;
 using System.Data;
 
 namespace Option_Pricer.Utils
 {
     internal class FilesManagement
     {   
-        private static CustomConfiguration config = new CustomConfiguration();
+        // REMOVE if you don't do anything with the _date 
         DateTime date;
 
         public DateTime Date { get =>  date; set => date = value; }
@@ -25,7 +25,7 @@ namespace Option_Pricer.Utils
         public DataTable CsvToDataTable(string file_name)
         {
             DataTable dt = new DataTable();
-            using (StreamReader reader = new StreamReader(config._mocks_path + file_name)) 
+            using (StreamReader reader = new StreamReader(CustomConfiguration._mocks_path + file_name)) 
             {
                 string[] headers = reader.ReadLine().Split(';'); 
                 foreach (string header in headers)

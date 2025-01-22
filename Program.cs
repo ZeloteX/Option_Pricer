@@ -14,10 +14,13 @@ namespace Option_Pricer
         static void Main(String[] args)
         {
             Console.WriteLine("Hello, World!");
+            Console.WriteLine("Start: Program");
 
             /** Initialisation **/
-            CustomConfiguration config = new CustomConfiguration();
-            FilesManagement tools = new FilesManagement(DateTime.Today);
+            // Need Global information 
+            DateTime date = DateTime.Now;
+            string underlying = "AAPL"; // ToDo: should not be harcoded or not here 
+
 
             /** Values **/
             double strike_price = 40;
@@ -25,18 +28,20 @@ namespace Option_Pricer
             double maturity = 0.5;              // 2 years
             double volatility = 20;             // 20%
             double free_interest_rate = 10;     // 10%
-            string option_type = "PUT";
+            string option_type = "Call";
 
             
 
             /** Computation **/
-            ComputationVolatility calculator_vol = new ComputationVolatility("AAPL");
-            double vo = calculator_vol.computation();
+            ComputationVolatility calculator_vol = new ComputationVolatility(date, underlying);
+            double vol = calculator_vol.Computation();
 
             ComputationOptionPrice calculator = new ComputationOptionPrice(strike_price, spot_price, maturity, volatility, free_interest_rate, option_type);
 
             double option_price = calculator.computation();
-            Console.WriteLine(option_price);
+            
+            Console.WriteLine($"Done: Program at {DateTime.Now}");
+            Console.WriteLine($"Option '{option_type}' price = {option_price}");
 
         }
         
