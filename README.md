@@ -1,5 +1,6 @@
 # Option_Pricer
 
 # TODO  : 
-Write a logger maybe 
+Get the Yahoo Finance Extractor from API, or connect this prog to another prog to get data 
+Write a logger ... maybe 
 

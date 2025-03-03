@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Option_Pricer.Configurations;
 
 namespace Option_Pricer.Extractors
 {

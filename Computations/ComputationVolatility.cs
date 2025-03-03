@@ -27,15 +27,15 @@ namespace Option_Pricer.Computation
             return dt;
         }
 
-        protected override double Processing(DataTable dt) 
+        protected override double Processing() 
         {
-            DataTable dt_res = dt.Copy();
+            DataTable dt_res = this._dt.Copy();
 
             // Compute Daily return
       
             dt_res.Columns.Add($"Daily return {this._stock_name}", typeof(double));
                 
-            for (int i = 0; i < dt.Rows.Count; i++)
+            for (int i = 0; i < this._dt.Rows.Count; i++)
             {
                 if (i == 0)
                 {
@@ -44,8 +44,8 @@ namespace Option_Pricer.Computation
                 else
                 {
                     dt_res.Rows[i][$"Daily return {this._stock_name}"] = 
-                    Math.Log((double)dt.Rows[i][this._stock_name]) - 
-                    Math.Log((double)dt.Rows[i - 1][this._stock_name]);
+                    Math.Log((double)this._dt.Rows[i][this._stock_name]) - 
+                    Math.Log((double)this._dt.Rows[i - 1][this._stock_name]);
                 }
             }
 

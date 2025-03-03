@@ -1,0 +1,34 @@
+{
+  "Option_infos": [
+    {
+      "Underlying": "AAPL",
+      "Option_type": "CALL",
+      "Strike_price": 40.0,
+      "Spot_price": 42.0,
+      "Volatility": 20.0,
+      "Free_interest_rate": 10.0,
+      "Maturity": 0.5,
+      "Premium": 4.7594229843523195
+    },
+    {
+      "Underlying": "AAPL",
+      "Option_type": "PUT",
+      "Strike_price": 40.0,
+      "Spot_price": 42.0,
+      "Volatility": 20.0,
+      "Free_interest_rate": 10.0,
+      "Maturity": 0.5,
+      "Premium": 0.808599372900094
+    },
+    {
+      "Underlying": "AAPL",
+      "Option_type": "CALL",
+      "Strike_price": 40.0,
+      "Spot_price": 42.0,
+      "Volatility": 22.11,
+      "Free_interest_rate": 10.0,
+      "Maturity": 0.5,
+      "Premium": 4.949731269659008
+    }
+  ]
+}

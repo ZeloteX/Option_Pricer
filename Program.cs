@@ -1,11 +1,12 @@
 ﻿/*
  * Main for this project  
- * 
- * Date == Datetime
  */
-using System.Data;
 using Option_Pricer.Computation;
-using Option_Pricer.Utils;
+using Option_Pricer.Objects;
+using Newtonsoft.Json;
+using Option_Pricer.DataModels;
+using Config = Option_Pricer.Configurations.CustomConfiguration;
+using Option_Pricer.Configurations;
 
 namespace Option_Pricer
 {
@@ -16,37 +17,33 @@ namespace Option_Pricer
             Console.WriteLine("Hello, World!");
             Console.WriteLine("Start: Program");
 
-            /** Initialisation **/
-            // Need Global information 
+            /** Initialization **/
+            var jsonInfo = File.ReadAllText(Config._input_config);
+
+            var input_config = JsonConvert.DeserializeObject<InputGlobal>(jsonInfo);
             DateTime date = DateTime.Now;
-            string underlying = "AAPL"; // ToDo: should not be harcoded or not here 
-
-
-            /** Values **/
-            double strike_price = 40;
-            double spot_price = 42;
-            double maturity = 0.5;              // 2 years
-            double volatility = 20;             // 20%
-            double free_interest_rate = 10;     // 10%
-            string option_type = "Call";
-
-            
 
             /** Computation **/
-            ComputationVolatility calculator_vol = new ComputationVolatility(date, underlying);
-            double vol = calculator_vol.Computation();
+            foreach (OptionInfo option in input_config.Option_infos)
+            {
+                Console.WriteLine(option.Name);
 
-            ComputationOptionPrice calculator = new ComputationOptionPrice(strike_price, spot_price, maturity, volatility, free_interest_rate, option_type);
+                if(option.Volatility == 0)  //Volatility = 0 -> No vol given 
+                {
+                    ComputationVolatility calculator_volatility = new ComputationVolatility(date, option.Underlying);
+                    option.Volatility = calculator_volatility.Computation();
+                }
 
-            double option_price = calculator.computation();
-            
+                ComputationOptionPrice calculator_premium = new ComputationOptionPrice(date, option.Strike_price, option.Spot_price, option.Maturity, option.Volatility, option.Free_interest_rate, option.Option_type);
+                option.Premium = calculator_premium.Computation();
+
+            }
+
+            /** Conclusion **/
+            string jsonOutput = JsonConvert.SerializeObject(input_config, Formatting.Indented);
+            File.WriteAllText(Config._mocks_path + "Outputs/" + $"OptionList_{date.ToString(Config._date_format)}.txt", jsonOutput);
+
             Console.WriteLine($"Done: Program at {DateTime.Now}");
-            Console.WriteLine($"Option '{option_type}' price = {option_price}");
-
-        }
-        
-
-            
-        
+        }        
     }
 }

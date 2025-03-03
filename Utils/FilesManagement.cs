@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Text.Json;
 using System.Data.OleDb;
+using Newtonsoft.Json;
 using System.Data;
+using Option_Pricer.Configurations;
 
 namespace Option_Pricer.Utils
 {
     internal class FilesManagement
     {   
         // REMOVE if you don't do anything with the _date 
-        DateTime date;
+        private DateTime date;
 
         public DateTime Date { get =>  date; set => date = value; }
 
@@ -47,7 +49,6 @@ namespace Option_Pricer.Utils
 
             return dt; 
         }
-
 
     }
 }
